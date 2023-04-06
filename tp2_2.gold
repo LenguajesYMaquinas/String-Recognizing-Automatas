@@ -1,0 +1,24 @@
+using gold.**
+procedure main(args:String[]) begin
+	GAutomataFrame.show(createAutomaton())
+ end
+function createAutomaton():IAutomaton
+	begin
+		Σ := ('a'‥'e')
+		Q := {⟨0,{'a'}⟩}∪(1‥3)×℘(Σ)
+		q := ⟨0,{'a'}⟩
+		F := {3}×℘(('a'‥'e'))
+ 		return GDeterministicAutomaton(Q, Σ, q, F, δ)
+	end
+function δ(⟨count, actual⟩, character) 
+	begin
+		if count==0 and actual=={'a'} then return ⟨count+1, {character}⟩
+		elseif count==1 and character∈actual then return ⟨count, actual⟩
+		elseif count==2 and character∈actual then return ⟨count, actual⟩
+		elseif count==3 and character∈actual then return ⟨count, actual⟩	
+		elseif count==1 and character∉actual then return ⟨count+1, actual∪{character}⟩
+		elseif count==2 and character∉actual then return ⟨count+1, actual∪{character}⟩
+		elseif count==3 and character∉actual then return ⟨count, actual∪{character}⟩
+		else return "err"	
+	end
+end

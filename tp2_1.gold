@@ -1,0 +1,21 @@
+using gold.**
+procedure main(args:String[]) begin
+	GAutomataFrame.show(createAutomaton())
+ end
+function createAutomaton():IAutomaton
+	begin
+		Σ := ('a'‥'e')
+		Q := ((('a'‥'e')∪{Ø})×(('a'‥'e')∪{Ø}))∪{0}
+		q := ⟨Ø, Ø⟩
+		F := ((('a'‥'e')∪{Ø})×(('a'‥'e')∪{Ø}))
+ 		return GDeterministicAutomaton(Q, Σ, q, F, δ)
+	end
+function δ(q,s) begin
+ return q
+end
+function δ(⟨previous, previousPrevious⟩, character) 
+	begin
+		if character!=previous and character!=previousPrevious then return ⟨character, previous⟩
+		else return 0	
+	end
+end
